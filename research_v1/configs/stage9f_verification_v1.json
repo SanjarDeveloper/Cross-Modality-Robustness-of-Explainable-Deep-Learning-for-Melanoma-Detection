@@ -1,0 +1,4 @@
+{"frozen": "2026-10-04, before Stage 9F launch",
+ "reload_tolerance": {"max_abs_prob_diff": 1e-6, "source": "Addendum I3 / rv1.rq3_verify TOL (unchanged)", "auroc": "exact equality with saved"},
+ "verifier": "rv1.rq3_verify (fresh process), plus stage9f aggregate: checkpoint config aug_version == aug_heavy_v1, best vs latest pointers, finite step losses, receipts verify, head init equals standard run",
+ "selection": "best full HAM VAL AUROC, earliest epoch on ties (unchanged)"}

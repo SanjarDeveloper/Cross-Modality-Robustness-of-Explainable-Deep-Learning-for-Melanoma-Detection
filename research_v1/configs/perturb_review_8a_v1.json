@@ -1,0 +1,52 @@
+{
+  "schema_version": "rv1.config/1",
+  "run_kind": "v1",
+  "purpose": "aug_review",
+  "project_root": "../..",
+  "description": "Stage 8A bounded visual review of perturb_msim_v1 on 4 HAM TRAIN images (no model).",
+  "manifests": {
+    "ham10000": "research_v1/manifests/v1/ham10000_v1.csv",
+    "derm7pt": "research_v1/manifests/v1/derm7pt_v1.csv",
+    "pad_ufes_20": "research_v1/manifests/v1/pad_ufes_20_v1.csv",
+    "ddi": "research_v1/manifests/v1/ddi_v1.csv",
+    "xai_derm7pt": "research_v1/manifests/v1/xai_derm7pt_v1.csv"
+  },
+  "environment_inventory": "research_v1/env/env_inventory_v1.json",
+  "seeds": {
+    "split_seed": 0,
+    "train_seed": 0,
+    "sample_seed": 20260927,
+    "control_seed": null,
+    "bootstrap_seed": null
+  },
+  "versions": {
+    "prep_version": "prep_v1_cached256",
+    "aug_version": "aug_std_v1",
+    "perturb_version": "msim_v1",
+    "metric_version": null,
+    "xai_version": null,
+    "threshold_rule": "v1_highest_t_img_sens95",
+    "mask_interp_version": "mask_interp_v1"
+  },
+  "determinism": {
+    "cudnn_deterministic": true,
+    "cudnn_benchmark": false,
+    "use_deterministic_algorithms": true,
+    "warn_only": true
+  },
+  "legacy_sources": [
+    "code/data.py",
+    "code/eval/xai.py",
+    "code/labels.py",
+    "code/precache.py",
+    "code/train.py",
+    "research_v1/tools/build_manifests_v1.py",
+    "research_v1/tools/inventory_env.py"
+  ],
+  "supporting_inputs": {
+    "perturb_spec": "research_v1/configs/perturb_msim_v1_spec.json",
+    "legacy_simulator": "code/msim/simulator.py",
+    "manifest_card": "research_v1/manifests/v1/manifest_card_v1.json",
+    "cache/ham_train_meta.json": "cache/ham_train_meta.json"
+  }
+}

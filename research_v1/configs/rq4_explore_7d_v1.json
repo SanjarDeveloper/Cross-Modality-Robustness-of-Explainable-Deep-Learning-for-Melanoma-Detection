@@ -1,0 +1,58 @@
+{
+  "schema_version": "rv1.config/1",
+  "run_kind": "v1",
+  "purpose": "analysis_v1",
+  "project_root": "../..",
+  "description": "Stage 7D: exploratory RQ4 E4.4 (melanoma vs non-melanoma shift contrasts) and E4.5 (Grad-CAM vs IG agreement), donor-mapping audit; verified Stage 7A/7B/7C artifacts; CPU only.",
+  "manifests": {
+    "ham10000": "research_v1/manifests/v1/ham10000_v1.csv",
+    "derm7pt": "research_v1/manifests/v1/derm7pt_v1.csv",
+    "pad_ufes_20": "research_v1/manifests/v1/pad_ufes_20_v1.csv",
+    "ddi": "research_v1/manifests/v1/ddi_v1.csv",
+    "xai_derm7pt": "research_v1/manifests/v1/xai_derm7pt_v1.csv"
+  },
+  "environment_inventory": "research_v1/env/env_inventory_v1.json",
+  "seeds": {
+    "split_seed": 0,
+    "train_seed": 0,
+    "sample_seed": 20260927,
+    "control_seed": null,
+    "bootstrap_seed": 20261040
+  },
+  "versions": {
+    "prep_version": "prep_v1_cached256",
+    "aug_version": "aug_std_v1",
+    "perturb_version": null,
+    "metric_version": null,
+    "xai_version": null,
+    "threshold_rule": "v1_highest_t_img_sens95",
+    "mask_interp_version": "mask_interp_v1"
+  },
+  "determinism": {
+    "cudnn_deterministic": true,
+    "cudnn_benchmark": false,
+    "use_deterministic_algorithms": true,
+    "warn_only": true
+  },
+  "legacy_sources": [
+    "code/data.py",
+    "code/eval/xai.py",
+    "code/labels.py",
+    "code/precache.py",
+    "code/train.py",
+    "research_v1/tools/build_manifests_v1.py",
+    "research_v1/tools/inventory_env.py"
+  ],
+  "supporting_inputs": {
+    "stage7a_report": "research_v1/docs/STAGE7A_REPORT.md",
+    "protocol_addendum_B": "research_v1/docs/PROTOCOL_ADDENDUM_2026-09-27_B.md",
+    "controls_spec": "research_v1/configs/xai_controls_v1_spec.json",
+    "manifest_card": "research_v1/manifests/v1/manifest_card_v1.json",
+    "stage7b_report": "research_v1/docs/STAGE7B_REPORT.md",
+    "stage7b_note": "research_v1/docs/STAGE7B_INTERPRETATION_NOTE_v1.md",
+    "stage7a_receipt": "research_v1/runs/xai_prod_7a/20261003T173258Z_3b655f88_548b3a05/receipt_audit.json",
+    "stage7b_receipt": "research_v1/runs/rq4_stats_7b/20261004T072324Z_ccc51a7d_0c493e02/receipt_analyze.json",
+    "stage7c_receipt": "research_v1/runs/rq4_secondary_7c/20261004T073730Z_cb20b3f8_c3f30e65/receipt_analyze.json",
+    "stage7c_report": "research_v1/docs/STAGE7C_REPORT.md"
+  }
+}

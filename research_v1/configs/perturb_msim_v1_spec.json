@@ -1,0 +1,71 @@
+{
+  "version": "perturb_msim_v1",
+  "frozen_utc": "2026-10-04 (Stage 8A, before any transformed-example review)",
+  "module": "research_v1/src/rv1/perturb.py",
+  "module_sha256": "855cf57b7832eddb61895f05b27776d1b9bf33865164b05c743754f6712dcfb0",
+  "sources": {
+    "protocol": "02_rev2 \u00a74 (factors, severity grid {0,0.125,...,1}, perturb_seed, claim limits: radius_max 7 px, JPEG quality_min 18, zoom_out_max 2.4)",
+    "plan": "03_rev1 \u00a74/\u00a76/\u00a710 and 03_rev2 \u00a78/\u00a714 (msim ops with explicit rng; scale_v1 with mask geometry; severity-0 identity; two-process determinism)",
+    "legacy": "code/msim/simulator.py (read-only) - parameter defaults and formulas reused"
+  },
+  "pipeline": "cached 256x256 uint8 RGB -> perturb.apply -> preprocess.to_model_input (INTER_LINEAR 224, /255, ImageNet norm). Masks: mask_interp_v1 -> mask_to_cache_grid (INTER_NEAREST_EXACT 256) -> apply -> INTER_NEAREST_EXACT 224",
+  "severity": {
+    "domain": "[0,1] finite float",
+    "grid": [
+      0.0,
+      0.125,
+      0.25,
+      0.375,
+      0.5,
+      0.625,
+      0.75,
+      0.875,
+      1.0
+    ],
+    "zero": "identity for every factor; JPEG bypass (no re-encode)"
+  },
+  "rng": {
+    "seed": "stable_seed(split_seed=0, image_uid, factor) (SHA-256; rv1.seeds)",
+    "generator": "numpy Generator(PCG64(seed)), one per call",
+    "global_state": "untouched",
+    "retrospective": "all random draws of a factor are unconditional and in fixed order so every severity shares one realization (legacy skipped glare draw at intensity<0.01; legacy seeded via Python hash of content)"
+  },
+  "factors": {
+    "blur": {
+      "formula": "r=7*s; r<0.3 identity; cv2.GaussianBlur(k=2*round(3r)+1, sigma=r, BORDER_REPLICATE)",
+      "dtype": "uint8 in/out",
+      "geometry": false,
+      "mask": "unchanged"
+    },
+    "illumination": {
+      "formula": "sign=+1 if rng.random()<0.5 else -1; bright=0.28*s*sign; contrast=1-0.25*s*sign; temp=0.22*s*sign; x=(img/255-0.5)*contrast+0.5+bright; R*=(1+temp); B*=(1-temp); clip(x*255,0,255).astype(uint8)",
+      "colour_space": "RGB float32",
+      "rounding": "truncation (legacy)",
+      "geometry": false,
+      "mask": "unchanged"
+    },
+    "compression": {
+      "formula": "q=round(95+(18-95)*s); cv2.imencode('.jpg', BGR, IMWRITE_JPEG_QUALITY=q) -> imdecode; OpenCV default sampling",
+      "opencv": "4.11.0",
+      "geometry": false,
+      "mask": "unchanged",
+      "s0": "bypass"
+    },
+    "scale": {
+      "formula": "z=1+1.4*s; off=0.18*s; inset=INTER_AREA resize to (int(256/z)); centre +/- rng offset direction*off*256 (clipped); legacy synthetic low-frequency skin-tone surround (rng noise, sigma 0.06*256) ; feathered alpha (inner 10%, Gaussian)",
+      "geometry": true,
+      "mask": "same inset geometry, INTER_NEAREST_EXACT, zero fill (scale_v1); feathered image border vs hard mask border documented"
+    },
+    "nuisance": {
+      "formula": "glare: ellipse axes (0.14W,0.10H), random centre/angle, Gaussian 0.035*256, intensity 0.95*s; hair: round(16*s) of 16 pre-drawn strands, alpha 0.30-0.65, colour (35,28,24)",
+      "geometry": false,
+      "mask": "unchanged; occlusion not masked out"
+    }
+  },
+  "ham_all_white_masks": "ISIC_0026042 / ISIC_0029819 flags preserved (Addendum A3); not repaired",
+  "dependencies": {
+    "numpy": "2.2.6",
+    "opencv": "4.11.0"
+  },
+  "claim": "controlled synthetic image changes; not calibrated to or reproducing real smartphone acquisition"
+}

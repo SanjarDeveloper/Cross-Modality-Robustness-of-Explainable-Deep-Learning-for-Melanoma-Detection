@@ -1,0 +1,48 @@
+{
+  "schema_version": "rv1.config/1",
+  "run_kind": "v1",
+  "purpose": "mask_audit",
+  "project_root": "../..",
+  "description": "Stage 2B2B: HAM mask interpretation under mask_interp_v1 (render via each file's own palette; white=lesion, black=background), full validation of 10015 masks and a deterministic visual review sample. No preprocessing, model or training.",
+  "manifests": {
+    "ham10000": "research_v1/manifests/v1/ham10000_v1.csv",
+    "derm7pt": "research_v1/manifests/v1/derm7pt_v1.csv",
+    "pad_ufes_20": "research_v1/manifests/v1/pad_ufes_20_v1.csv",
+    "ddi": "research_v1/manifests/v1/ddi_v1.csv",
+    "xai_derm7pt": "research_v1/manifests/v1/xai_derm7pt_v1.csv"
+  },
+  "environment_inventory": "research_v1/env/env_inventory_v1.json",
+  "seeds": {
+    "split_seed": 0,
+    "train_seed": null,
+    "sample_seed": 20260927,
+    "control_seed": null,
+    "bootstrap_seed": null
+  },
+  "versions": {
+    "prep_version": null,
+    "aug_version": null,
+    "perturb_version": null,
+    "metric_version": null,
+    "xai_version": null,
+    "threshold_rule": null
+  },
+  "determinism": {
+    "cudnn_deterministic": true,
+    "cudnn_benchmark": false,
+    "use_deterministic_algorithms": true,
+    "warn_only": true
+  },
+  "legacy_sources": [
+    "code/labels.py",
+    "code/data.py",
+    "research_v1/tools/build_manifests_v1.py",
+    "research_v1/tools/inventory_env.py"
+  ],
+  "supporting_inputs": {
+    "manifest_card": "research_v1/manifests/v1/manifest_card_v1.json",
+    "ham_dataverse_meta": "DATASETS/ham10000/dataverse_meta.json",
+    "stage2b2a_decode_audit": "research_v1/runs/data_audit/20260927T111157Z_7be7a6a8_5f26c521/decode_audit.csv",
+    "stage2b2a_summary": "research_v1/runs/data_audit/20260927T111157Z_7be7a6a8_5f26c521/summary.json"
+  }
+}

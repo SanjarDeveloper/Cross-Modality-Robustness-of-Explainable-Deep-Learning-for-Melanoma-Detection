@@ -1,0 +1,39 @@
+# --- Data and large artifacts (licence limits / size) ---
+DATASETS/
+cache/
+checkpoints/
+research_v1/runs/
+runs/
+logs/
+results/
+graphify-out/
+*.pt
+*.pth
+*.ckpt
+*.npy
+*.npz
+
+# --- Environments and caches ---
+research_v1/.venv_model/
+research_v1/.venv_prep/
+.venv*/
+__pycache__/
+*.pyc
+node_modules/
+.claude/
+
+# --- Personal / working documents (not part of the code) ---
+*.docx
+SESSION_HANDOFF*.md
+audit/
+protocol/
+
+# --- Thesis drafts: keep private until submission (remove this line to publish) ---
+research_v1/thesis_materials/
+
+# --- OS / editor ---
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/

@@ -1,0 +1,147 @@
+{
+  "created_utc": "2026-09-27T10:32:23Z",
+  "python": {
+    "executable": "C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python310\\python.exe",
+    "version": "3.10.11 (tags/v3.10.11:7d4cc5a, Apr  5 2023, 00:38:17) [MSC v.1929 64 bit (AMD64)]",
+    "prefix": "C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python310",
+    "base_prefix": "C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python310",
+    "in_virtualenv": false,
+    "conda_prefix": null,
+    "dont_write_bytecode": true
+  },
+  "platform": {
+    "platform": "Windows-10-10.0.26200-SP0",
+    "machine": "AMD64"
+  },
+  "env_vars": {
+    "PYTHONHASHSEED": null,
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "packages": [
+    {
+      "distribution": "torch",
+      "distribution_version": "2.11.0+cu128",
+      "import_name": "torch",
+      "find_spec": true,
+      "import_ok": true,
+      "module_version": "2.11.0+cu128"
+    },
+    {
+      "distribution": "torchvision",
+      "distribution_version": "0.26.0+cu128",
+      "import_name": "torchvision",
+      "find_spec": true,
+      "import_ok": true,
+      "module_version": "0.26.0+cu128"
+    },
+    {
+      "distribution": "timm",
+      "distribution_version": "1.0.28",
+      "import_name": "timm",
+      "find_spec": true,
+      "import_ok": true,
+      "module_version": "1.0.28"
+    },
+    {
+      "distribution": "albumentations",
+      "distribution_version": "2.0.8",
+      "import_name": "albumentations",
+      "find_spec": true,
+      "import_ok": true,
+      "module_version": "2.0.8"
+    },
+    {
+      "distribution": "opencv-python",
+      "distribution_version": "4.11.0.86",
+      "import_name": "cv2",
+      "find_spec": true,
+      "import_ok": true,
+      "module_version": "4.11.0"
+    },
+    {
+      "distribution": "opencv-python-headless",
+      "distribution_version": "5.0.0.93",
+      "import_name": "cv2",
+      "find_spec": true,
+      "import_ok": true,
+      "module_version": "4.11.0"
+    },
+    {
+      "distribution": "numpy",
+      "distribution_version": "2.2.6",
+      "import_name": "numpy",
+      "find_spec": true,
+      "import_ok": true,
+      "module_version": "2.2.6"
+    },
+    {
+      "distribution": "pandas",
+      "distribution_version": "2.3.3",
+      "import_name": "pandas",
+      "find_spec": true,
+      "import_ok": true,
+      "module_version": "2.3.3"
+    },
+    {
+      "distribution": "scipy",
+      "distribution_version": "1.15.3",
+      "import_name": "scipy",
+      "find_spec": true,
+      "import_ok": true,
+      "module_version": "1.15.3"
+    },
+    {
+      "distribution": "scikit-learn",
+      "distribution_version": "1.7.2",
+      "import_name": "sklearn",
+      "find_spec": true,
+      "import_ok": true,
+      "module_version": "1.7.2"
+    },
+    {
+      "distribution": "matplotlib",
+      "distribution_version": "3.10.9",
+      "import_name": "matplotlib",
+      "find_spec": true,
+      "import_ok": true,
+      "module_version": "3.10.9"
+    },
+    {
+      "distribution": "pyarrow",
+      "distribution_version": "24.0.0",
+      "import_name": "pyarrow",
+      "find_spec": true,
+      "import_ok": true,
+      "module_version": "24.0.0"
+    },
+    {
+      "distribution": "captum",
+      "distribution_version": "0.9.0",
+      "import_name": "captum",
+      "find_spec": true,
+      "import_ok": true,
+      "module_version": "0.9.0"
+    },
+    {
+      "distribution": "streamlit",
+      "distribution_version": null,
+      "import_name": "streamlit",
+      "find_spec": false
+    }
+  ],
+  "gpu": {
+    "torch_cuda_build": "12.8",
+    "cuda_available": true,
+    "cudnn_version": 91900,
+    "device_count": 1,
+    "name": "NVIDIA GeForce RTX 5060 Laptop GPU",
+    "total_memory_mib": 8150,
+    "capability": "12.0"
+  },
+  "albumentations_seed_api": {
+    "compose_init_has_seed": true,
+    "compose_has_set_random_seed": true,
+    "compose_has_set_random_state": true,
+    "note": "attribute existence only; behaviour not tested"
+  }
+}

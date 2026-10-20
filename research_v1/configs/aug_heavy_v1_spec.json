@@ -1,0 +1,12 @@
+{
+  "recipe": "aug_heavy_v1",
+  "frozen": "2026-10-04 Stage 9D, before review/timing and before heavy training",
+  "module": "research_v1/src/rv1/augment.py",
+  "module_sha256": "df6474a38cc5d43d94539737d9aa8618c78c6eaefbdffe4b6b6216735e851c9d",
+  "albumentations": "2.0.8",
+  "opencv": "4.11.0",
+  "numpy": "2.2.6",
+  "source": "legacy code/train.py:_heavy_tf (order/parameters/probabilities kept)",
+  "addendum": "research_v1/docs/PROTOCOL_ADDENDUM_2026-10-04_K.md",
+  "aug_std_v1_regression": "96 output digests (24 HAM TRAIN images x aug_none + 3 aug_std_v1 seed/epoch pairs) identical before/after the edit (runs/stage9d/digests_*.json)"
+}

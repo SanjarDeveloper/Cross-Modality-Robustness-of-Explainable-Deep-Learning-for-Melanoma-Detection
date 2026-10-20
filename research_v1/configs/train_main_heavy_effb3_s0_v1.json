@@ -1,0 +1,83 @@
+{
+  "schema_version": "rv1.config/1",
+  "run_kind": "v1",
+  "purpose": "train_main",
+  "project_root": "../..",
+  "description": "Stage 9F main heavy-augmentation run: effb3 seed 0, 8 epochs; identical to train_main_effb3_s0_v1.json except aug_std_v1 -> aug_heavy_v1 (Addendum K).",
+  "manifests": {
+    "ham10000": "research_v1/manifests/v1/ham10000_v1.csv",
+    "derm7pt": "research_v1/manifests/v1/derm7pt_v1.csv",
+    "pad_ufes_20": "research_v1/manifests/v1/pad_ufes_20_v1.csv",
+    "ddi": "research_v1/manifests/v1/ddi_v1.csv",
+    "xai_derm7pt": "research_v1/manifests/v1/xai_derm7pt_v1.csv"
+  },
+  "environment_inventory": "research_v1/env/env_inventory_v1.json",
+  "seeds": {
+    "split_seed": 0,
+    "train_seed": 0,
+    "sample_seed": 20260927,
+    "control_seed": null,
+    "bootstrap_seed": null
+  },
+  "versions": {
+    "prep_version": "prep_v1_cached256",
+    "aug_version": "aug_heavy_v1",
+    "perturb_version": null,
+    "metric_version": null,
+    "xai_version": null,
+    "threshold_rule": null,
+    "mask_interp_version": "mask_interp_v1"
+  },
+  "determinism": {
+    "cudnn_deterministic": true,
+    "cudnn_benchmark": false,
+    "use_deterministic_algorithms": true,
+    "warn_only": true
+  },
+  "legacy_sources": [
+    "code/data.py",
+    "code/labels.py",
+    "code/precache.py",
+    "code/train.py",
+    "research_v1/tools/build_manifests_v1.py",
+    "research_v1/tools/inventory_env.py"
+  ],
+  "supporting_inputs": {
+    "manifest_card": "research_v1/manifests/v1/manifest_card_v1.json",
+    "venv_model_freeze": "research_v1/runs/stage2c2/venv_model_freeze_final.txt",
+    "cache/ham_train_img.npy": "cache/ham_train_img.npy",
+    "cache/ham_train_meta.json": "cache/ham_train_meta.json",
+    "cache/ham_val_img.npy": "cache/ham_val_img.npy",
+    "cache/ham_val_meta.json": "cache/ham_val_meta.json",
+    "protocol_addendum_C": "research_v1/docs/PROTOCOL_ADDENDUM_2026-09-27_C.md",
+    "protocol_addendum_B": "research_v1/docs/PROTOCOL_ADDENDUM_2026-09-27_B.md",
+    "weight_provenance": "research_v1/runs/stage9a/weights/weight_provenance.json",
+    "protocol_addendum_J": "research_v1/docs/PROTOCOL_ADDENDUM_2026-10-04_J.md",
+    "stage9a_report": "research_v1/docs/STAGE9A_REPORT.md",
+    "protocol_addendum_K": "research_v1/docs/PROTOCOL_ADDENDUM_2026-10-04_K.md",
+    "heavy_spec": "research_v1/configs/aug_heavy_v1_spec.json"
+  },
+  "training": {
+    "arch": "efficientnet_b3",
+    "pretrained_model_id": "efficientnet_b3.ra2_in1k",
+    "pretrained_weights_file": "research_v1/runs/stage9a/weights/models--timm--efficientnet_b3.ra2_in1k/snapshots/0366a75518620e0f2077789202073759f2d61393/model.safetensors",
+    "pretrained_weights_sha256": "279d2a53898aa89dab43fd6bd7df9f706aea4cb9cf916223988bbcb8e5850469",
+    "num_classes": 1,
+    "epochs": 8,
+    "batch_size": 16,
+    "optimizer": "adamw",
+    "lr": 0.0003,
+    "weight_decay": 0.0001,
+    "scheduler": "cosine_per_step",
+    "loss": "bce_with_logits_pos_weight_from_train_subset",
+    "precision": "fp32",
+    "num_workers": 0,
+    "sampler_seed": 20260927,
+    "train_subset_file": "research_v1/configs/pilot_ham_train_full_v1.csv",
+    "probe_file": "research_v1/configs/main_ham_val_full_v1.csv",
+    "cublas_workspace_config": ":4096:8",
+    "best_model_selection": "val_auroc_max_earliest_tie",
+    "train_backend": "pytorch_default_tf32conv",
+    "eval_precision": "xai_precision_v1"
+  }
+}

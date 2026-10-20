@@ -1,0 +1,11 @@
+{
+  "previous_file": "04_ISIC_0024352.jpg",
+  "previous_score": 0.9415590763092041,
+  "previous_label": 0,
+  "new_file": "04_ISIC_0024357.jpg",
+  "new_label": 0,
+  "new_score": 0.0020036299247294664,
+  "threshold": 0.17569470405578613,
+  "new_positive": false,
+  "selection": "Selected for correct non-melanoma prediction for demonstration only"
+}

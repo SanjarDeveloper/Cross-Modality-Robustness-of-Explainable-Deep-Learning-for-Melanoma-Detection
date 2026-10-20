@@ -1,0 +1,68 @@
+{
+  "images": [
+    {
+      "file": "01_ISIC_0024351.jpg",
+      "actual": 1,
+      "predicted": 1,
+      "score": 0.2981838285923004,
+      "threshold": 0.17569470405578613,
+      "correct": true,
+      "cam": true,
+      "research_score_difference": 8.940696716308594e-07
+    },
+    {
+      "file": "02_ISIC_0024449.jpg",
+      "actual": 1,
+      "predicted": 1,
+      "score": 0.987569272518158,
+      "threshold": 0.17569470405578613,
+      "correct": true,
+      "cam": true,
+      "research_score_difference": 0.0
+    },
+    {
+      "file": "03_ISIC_0024317.jpg",
+      "actual": 0,
+      "predicted": 0,
+      "score": 0.12698490917682648,
+      "threshold": 0.17569470405578613,
+      "correct": true,
+      "cam": true,
+      "research_score_difference": 3.427267074584961e-07
+    },
+    {
+      "file": "04_ISIC_0024336.jpg",
+      "actual": 0,
+      "predicted": 1,
+      "score": 0.534966766834259,
+      "threshold": 0.17569470405578613,
+      "correct": false,
+      "cam": true,
+      "research_score_difference": 4.172325134277344e-07
+    },
+    {
+      "file": "05_ISIC_0024337.jpg",
+      "actual": 0,
+      "predicted": 0,
+      "score": 0.0002009717863984406,
+      "threshold": 0.17569470405578613,
+      "correct": true,
+      "cam": true,
+      "research_score_difference": 1.7316779121756554e-09
+    }
+  ],
+  "invalid_uploads": [
+    {
+      "status": 413,
+      "body": {
+        "error": "Please upload a non-empty image no larger than 10 MB."
+      }
+    },
+    {
+      "status": 400,
+      "body": {
+        "error": "cannot identify image file <_io.BytesIO object at 0x00000234995812B0>"
+      }
+    }
+  ]
+}

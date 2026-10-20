@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Skin Lesion Classifier</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+<header class="top">
+  <div class="top-inner">
+    <h1>Skin Lesion Classifier: Melanoma vs Non-melanoma</h1>
+    <!-- Model status pill: hidden for the demo; remove `hidden` to show it again. -->
+    <p id="status" class="status" role="status" hidden><span class="dot"></span><span id="status-text">Starting AI…</span></p>
+  </div>
+  <!-- Tabs hidden for the demo: only the test page is shown. Remove `hidden` on <nav> to bring them back. -->
+  <nav class="tabs" role="tablist" aria-label="Demo sections" hidden>
+    <button role="tab" id="tab-try" aria-controls="panel-try" aria-selected="true">Try it</button>
+    <button role="tab" id="tab-how" aria-controls="panel-how" aria-selected="false" tabindex="-1">How it works</button>
+    <!-- Detailed research results: kept in the code but hidden from the demo. Remove `hidden` to show it again. -->
+    <button role="tab" id="tab-results" aria-controls="panel-results" aria-selected="false" tabindex="-1" hidden>Research results</button>
+  </nav>
+</header>
+
+<main>
+  <!-- Panel 1: run the frozen research model on one image -->
+  <div id="panel-try" role="tabpanel" aria-labelledby="tab-try">
+    <div class="workspace">
+      <section class="card" aria-labelledby="input-heading">
+        <h2 id="input-heading">Choose an image</h2>
+        <p class="label">Example images</p>
+        <div id="samples" class="samples" aria-label="Example images"></div>
+        <div class="divider"><span>or upload your own</span></div>
+        <label class="upload" for="image-file">
+          <input id="image-file" type="file" accept="image/jpeg,image/png">
+          <span class="upload-btn">Choose file</span>
+          <span id="file-name" class="file-name">JPEG or PNG, up to 10 MB</span>
+        </label>
+        <img id="input-preview" class="preview" alt="Selected image" hidden>
+        <button id="predict" class="primary" disabled>Check image</button>
+        <p id="progress" class="progress" role="status" aria-live="polite"></p>
+      </section>
+
+      <section class="card" aria-labelledby="output-heading">
+        <h2 id="output-heading">Result</h2>
+        <p id="empty" class="empty">Choose an image and press "Check image".</p>
+        <div id="prediction" hidden>
+          <p id="decision" class="decision"></p>
+          <div class="meter" aria-hidden="true">
+            <div class="meter-track"><div id="meter-fill" class="meter-fill"></div><div id="meter-threshold" class="meter-threshold"></div></div>
+            <div class="meter-scale"><span>0 · not worried</span><span>1 · very worried</span></div>
+          </div>
+          <dl class="facts">
+            <div><dt>Melanoma score</dt><dd id="score"></dd></div>
+            <div><dt>Decision line</dt><dd id="threshold"></dd></div>
+            <div id="truth-row" hidden><dt>True diagnosis</dt><dd id="truth"></dd></div>
+          </dl>
+          <div class="pair">
+            <figure><img id="model-input" alt="The image as the AI sees it"><figcaption>What the AI sees</figcaption></figure>
+            <figure><img id="overlay" alt="Heatmap of where the AI looked"><p id="cam-empty" class="cam-empty" hidden>The AI found nothing melanoma-like to highlight in this image.</p><figcaption>Where the AI looked</figcaption></figure>
+          </div>
+          <div id="legend" class="legend"><span>less</span><span class="ramp"></span><span>more attention</span></div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- Panel 2: plain-language explanation and resources -->
+  <div id="panel-how" role="tabpanel" aria-labelledby="tab-how" hidden>
+    <section class="block">
+      <h2>How it works</h2>
+      <ol class="flow">
+        <li><span class="step">1</span><b>Skin image</b><small>A close-up image of a mole or spot.</small></li>
+        <li><span class="step">2</span><b>Prepare</b><small>Resize to 224×224 pixels and adjust colours the same way as in training.</small></li>
+        <li><span class="step">3</span><b>AI model</b><small>ResNet-50, an image-recognition network, trained on dermoscopy images.</small></li>
+        <li><span class="step">4</span><b>Score</b><small>A number from 0 to 1. Above the decision line → "looks like melanoma".</small></li>
+        <li><span class="step">5</span><b>Heatmap</b><small>Grad-CAM colours the area that pushed the score up.</small></li>
+      </ol>
+    </section>
+    <div class="how-grid">
+      <section class="card">
+        <h2>What the AI learned from</h2>
+        <p><a href="https://doi.org/10.7910/DVN/DBW86T" target="_blank" rel="noopener">HAM10000</a>: 10,015 dermoscopy images of skin lesions, each with a diagnosis. Dermoscopy images are taken through a skin magnifier.</p>
+        <p>About 7,000 images were used for learning, and separate images were kept aside for testing. The examples on the "Try it" page come from the test set.</p>
+        <p class="hint">Licence: CC BY-NC 4.0 (non-commercial use). Works best on dermoscopy images; on ordinary phone photos it is less reliable.</p>
+      </section>
+      <section class="card">
+        <h2>What it is built with</h2>
+        <ul class="resources">
+          <li><a href="https://huggingface.co/timm/resnet50.a1_in1k" target="_blank" rel="noopener">ResNet-50</a> — pre-trained image model, then retrained for melanoma</li>
+          <li><a href="https://pytorch.org" target="_blank" rel="noopener">PyTorch</a> — runs the AI model</li>
+          <li><a href="https://github.com/huggingface/pytorch-image-models" target="_blank" rel="noopener">timm</a> — library that provides ResNet-50</li>
+          <li><a href="https://opencv.org" target="_blank" rel="noopener">OpenCV</a> — image resizing and the heatmap colours</li>
+          <li>Python web server + plain HTML/CSS/JavaScript — this page</li>
+        </ul>
+      </section>
+    </div>
+  </div>
+
+  <!-- Panel 2: frozen thesis results, read from MASTER_RESULTS_v2.csv -->
+  <div id="panel-results" role="tabpanel" aria-labelledby="tab-results" hidden>
+    <section class="block">
+      <h2>Key findings</h2>
+      <p class="hint">Primary model: standard ResNet-50, seed 0. Values come directly from the thesis results table; 95% intervals in brackets.</p>
+      <div id="highlights" class="highlights"></div>
+    </section>
+    <section class="block">
+      <h2>Figures</h2>
+      <div class="charts">
+        <figure class="card"><img src="/charts/rq2.png" alt="RQ2 chart: change in sensitivity by perturbation factor and severity" loading="lazy"><figcaption><b>RQ2.</b> Sensitivity change under five synthetic perturbations (HAM TEST).</figcaption></figure>
+        <figure class="card"><img src="/charts/rq3.png" alt="RQ3 chart: worst-case sensitivity for standard versus heavy augmentation" loading="lazy"><figcaption><b>RQ3.</b> Worst-case sensitivity, standard vs heavy augmentation, matched architecture and seed.</figcaption></figure>
+        <figure class="card"><img src="/charts/rq4.png" alt="RQ4 chart: Integrated Gradients faithfulness under perturbation" loading="lazy"><figcaption><b>RQ4.</b> Integrated Gradients faithfulness relative to random maps under perturbation.</figcaption></figure>
+        <figure class="card"><img src="/charts/rq4-localisation.png" alt="RQ4 chart: localisation against lesion masks" loading="lazy"><figcaption><b>RQ4.</b> Localisation against lesion masks, including the centre-prior control.</figcaption></figure>
+      </div>
+    </section>
+    <section class="block">
+      <h2>All results</h2>
+      <div class="filters">
+        <div id="rq-filter" class="chips" role="group" aria-label="Filter by research question"></div>
+        <input id="search" type="search" placeholder="Search endpoint, model, cohort…" aria-label="Search results">
+      </div>
+      <p id="results-count" class="hint"></p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>RQ</th><th>Endpoint</th><th>Model / seed</th><th>Cohort</th><th class="num">N</th><th class="num">Estimate [95% CI]</th><th>Role</th></tr></thead>
+          <tbody id="results-body"></tbody>
+        </table>
+      </div>
+      <p id="results-source" class="hint"></p>
+    </section>
+  </div>
+
+</main>
+</body>
+</html>

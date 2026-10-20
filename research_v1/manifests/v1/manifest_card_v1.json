@@ -1,0 +1,773 @@
+{
+ "status": "PASS",
+ "note": "PASS means all Stage 2A validations passed; it is not an approval for training.",
+ "split_seed": 0,
+ "xai_sample_seed": 20260927,
+ "stratum_rule_version": "pad_rq5_v1: S1 any MEL > S2 any BCC/SCC/ACK > S3; roles eval .50 / adapt_train .35 / adapt_val rest, ceil",
+ "stable_hash": "sha256(utf-8 string).hexdigest(); PAD key f'{split_seed}|{patient_id}', XAI key f'{sample_seed}|{pair_id}'; ties broken by the id string; Python hash() not used",
+ "identity": {
+  "record_uid": "unique per image-reference row",
+  "image_uid": "dataset + relative path (path-based file identity); content hash in sha256",
+  "pair_id": "Derm7pt case_id or 'case<case_num>' as in the legacy loader"
+ },
+ "counts": {
+  "ham10000": {
+   "train": {
+    "images": 6938,
+    "melanoma_images": 783,
+    "lesions": 5196,
+    "melanoma_lesions": 435
+   },
+   "val": {
+    "images": 1529,
+    "melanoma_images": 160,
+    "lesions": 1119,
+    "melanoma_lesions": 88
+   },
+   "test": {
+    "images": 1548,
+    "melanoma_images": 170,
+    "lesions": 1155,
+    "melanoma_lesions": 91
+   }
+  },
+  "derm7pt": {
+   "in_derm7pt_all": {
+    "pairs": 1011,
+    "image_reference_rows": 2022,
+    "melanoma_pairs": 252
+   },
+   "in_derm7pt_primary": {
+    "pairs": 1002,
+    "image_reference_rows": 2004,
+    "melanoma_pairs": 249
+   },
+   "unique_files": 2013
+  },
+  "pad_ufes_20": {
+   "rq5_partition": {
+    "eval/S1": {
+     "patients": 18,
+     "images": 47,
+     "melanoma_images": 26,
+     "melanoma_patients": 18
+    },
+    "eval/S2": {
+     "patients": 522,
+     "images": 908,
+     "melanoma_images": 0,
+     "melanoma_patients": 0
+    },
+    "eval/S3": {
+     "patients": 147,
+     "images": 195,
+     "melanoma_images": 0,
+     "melanoma_patients": 0
+    },
+    "eval/ALL": {
+     "patients": 687,
+     "images": 1150,
+     "melanoma_images": 26,
+     "melanoma_patients": 18,
+     "melanoma_images_by_fitzpatrick": {
+      "1.0": 3,
+      "2.0": 19,
+      "3.0": 4
+     }
+    },
+    "adapt_train/S1": {
+     "patients": 13,
+     "images": 20,
+     "melanoma_images": 17,
+     "melanoma_patients": 13
+    },
+    "adapt_train/S2": {
+     "patients": 366,
+     "images": 644,
+     "melanoma_images": 0,
+     "melanoma_patients": 0
+    },
+    "adapt_train/S3": {
+     "patients": 103,
+     "images": 141,
+     "melanoma_images": 0,
+     "melanoma_patients": 0
+    },
+    "adapt_train/ALL": {
+     "patients": 482,
+     "images": 805,
+     "melanoma_images": 17,
+     "melanoma_patients": 13,
+     "melanoma_images_by_fitzpatrick": {
+      "2.0": 9,
+      "3.0": 6,
+      "4.0": 2
+     }
+    },
+    "adapt_val/S1": {
+     "patients": 5,
+     "images": 10,
+     "melanoma_images": 9,
+     "melanoma_patients": 5
+    },
+    "adapt_val/S2": {
+     "patients": 156,
+     "images": 271,
+     "melanoma_images": 0,
+     "melanoma_patients": 0
+    },
+    "adapt_val/S3": {
+     "patients": 43,
+     "images": 62,
+     "melanoma_images": 0,
+     "melanoma_patients": 0
+    },
+    "adapt_val/ALL": {
+     "patients": 204,
+     "images": 343,
+     "melanoma_images": 9,
+     "melanoma_patients": 5,
+     "melanoma_images_by_fitzpatrick": {
+      "2.0": 7,
+      "4.0": 2
+     }
+    }
+   },
+   "missing_skin_tone_images": 804
+  },
+  "ddi": {
+   "12": {
+    "images": 208,
+    "melanoma": 7
+   },
+   "34": {
+    "images": 241,
+    "melanoma": 7
+   },
+   "56": {
+    "images": 207,
+    "melanoma": 7
+   }
+  }
+ },
+ "validation": [
+  {
+   "group": 5,
+   "check": "ham_split_equals_independent_reimplementation_of_legacy_rule",
+   "status": "PASS",
+   "observed": 0,
+   "expected": 0,
+   "source": "code/data.py:ham10000 (md5 xor bucket)"
+  },
+  {
+   "group": 1,
+   "check": "ham10000_image_files_exist",
+   "status": "PASS",
+   "observed": 0,
+   "expected": 0,
+   "source": null
+  },
+  {
+   "group": 1,
+   "check": "derm7pt_image_files_exist",
+   "status": "PASS",
+   "observed": 0,
+   "expected": 0,
+   "source": null
+  },
+  {
+   "group": 1,
+   "check": "pad_ufes_20_image_files_exist",
+   "status": "PASS",
+   "observed": 0,
+   "expected": 0,
+   "source": null
+  },
+  {
+   "group": 1,
+   "check": "ddi_image_files_exist",
+   "status": "PASS",
+   "observed": 0,
+   "expected": 0,
+   "source": null
+  },
+  {
+   "group": 1,
+   "check": "ham10000_mask_files_exist",
+   "status": "PASS",
+   "observed": 0,
+   "expected": 0,
+   "source": null
+  },
+  {
+   "group": 1,
+   "check": "ham10000_rows_with_mask",
+   "status": "PASS",
+   "observed": 10015,
+   "expected": null,
+   "source": null
+  },
+  {
+   "group": 2,
+   "check": "ham10000_all_labels_mapped",
+   "status": "PASS",
+   "observed": 0,
+   "expected": 0,
+   "source": "code/labels.py (raises on unknown)"
+  },
+  {
+   "group": 2,
+   "check": "derm7pt_all_labels_mapped",
+   "status": "PASS",
+   "observed": 0,
+   "expected": 0,
+   "source": "code/labels.py (raises on unknown)"
+  },
+  {
+   "group": 2,
+   "check": "pad_ufes_20_all_labels_mapped",
+   "status": "PASS",
+   "observed": 0,
+   "expected": 0,
+   "source": "code/labels.py (raises on unknown)"
+  },
+  {
+   "group": 2,
+   "check": "ddi_all_labels_mapped",
+   "status": "PASS",
+   "observed": 0,
+   "expected": 0,
+   "source": "code/labels.py (raises on unknown)"
+  },
+  {
+   "group": 3,
+   "check": "ham_images",
+   "status": "PASS",
+   "observed": 10015,
+   "expected": 10015,
+   "source": "raw metadata via code/data.py loaders"
+  },
+  {
+   "group": 3,
+   "check": "ham_melanoma",
+   "status": "PASS",
+   "observed": 1113,
+   "expected": 1113,
+   "source": "raw metadata via code/data.py loaders"
+  },
+  {
+   "group": 3,
+   "check": "ham_train_images",
+   "status": "PASS",
+   "observed": 6938,
+   "expected": 6938,
+   "source": "raw metadata via code/data.py loaders"
+  },
+  {
+   "group": 3,
+   "check": "ham_train_melanoma",
+   "status": "PASS",
+   "observed": 783,
+   "expected": 783,
+   "source": "raw metadata via code/data.py loaders"
+  },
+  {
+   "group": 3,
+   "check": "ham_val_images",
+   "status": "PASS",
+   "observed": 1529,
+   "expected": 1529,
+   "source": "raw metadata via code/data.py loaders"
+  },
+  {
+   "group": 3,
+   "check": "ham_val_melanoma",
+   "status": "PASS",
+   "observed": 160,
+   "expected": 160,
+   "source": "raw metadata via code/data.py loaders"
+  },
+  {
+   "group": 3,
+   "check": "ham_test_images",
+   "status": "PASS",
+   "observed": 1548,
+   "expected": 1548,
+   "source": "raw metadata via code/data.py loaders"
+  },
+  {
+   "group": 3,
+   "check": "ham_test_melanoma",
+   "status": "PASS",
+   "observed": 170,
+   "expected": 170,
+   "source": "raw metadata via code/data.py loaders"
+  },
+  {
+   "group": 3,
+   "check": "derm7pt_rows",
+   "status": "PASS",
+   "observed": 2022,
+   "expected": 2022,
+   "source": "raw metadata via code/data.py loaders"
+  },
+  {
+   "group": 3,
+   "check": "derm7pt_pairs",
+   "status": "PASS",
+   "observed": 1011,
+   "expected": 1011,
+   "source": "raw metadata via code/data.py loaders"
+  },
+  {
+   "group": 3,
+   "check": "derm7pt_melanoma_pairs",
+   "status": "PASS",
+   "observed": 252,
+   "expected": 252,
+   "source": "raw metadata via code/data.py loaders"
+  },
+  {
+   "group": 3,
+   "check": "derm7pt_same_file_pairs",
+   "status": "PASS",
+   "observed": 9,
+   "expected": 9,
+   "source": "raw metadata via code/data.py loaders"
+  },
+  {
+   "group": 3,
+   "check": "derm7pt_same_file_melanoma",
+   "status": "PASS",
+   "observed": 3,
+   "expected": 3,
+   "source": "raw metadata via code/data.py loaders"
+  },
+  {
+   "group": 3,
+   "check": "derm7pt_primary_pairs",
+   "status": "PASS",
+   "observed": 1002,
+   "expected": 1002,
+   "source": "raw metadata via code/data.py loaders"
+  },
+  {
+   "group": 3,
+   "check": "derm7pt_primary_melanoma",
+   "status": "PASS",
+   "observed": 249,
+   "expected": 249,
+   "source": "raw metadata via code/data.py loaders"
+  },
+  {
+   "group": 3,
+   "check": "derm7pt_unique_files",
+   "status": "PASS",
+   "observed": 2013,
+   "expected": 2013,
+   "source": "raw metadata via code/data.py loaders"
+  },
+  {
+   "group": 3,
+   "check": "pad_images",
+   "status": "PASS",
+   "observed": 2298,
+   "expected": 2298,
+   "source": "raw metadata via code/data.py loaders"
+  },
+  {
+   "group": 3,
+   "check": "pad_melanoma_images",
+   "status": "PASS",
+   "observed": 52,
+   "expected": 52,
+   "source": "raw metadata via code/data.py loaders"
+  },
+  {
+   "group": 3,
+   "check": "pad_patients",
+   "status": "PASS",
+   "observed": 1373,
+   "expected": 1373,
+   "source": "raw metadata via code/data.py loaders"
+  },
+  {
+   "group": 3,
+   "check": "pad_melanoma_patients",
+   "status": "PASS",
+   "observed": 36,
+   "expected": 36,
+   "source": "raw metadata via code/data.py loaders"
+  },
+  {
+   "group": 3,
+   "check": "pad_multi_diagnosis_patients",
+   "status": "PASS",
+   "observed": 179,
+   "expected": 179,
+   "source": "raw metadata via code/data.py loaders"
+  },
+  {
+   "group": 3,
+   "check": "ddi_images",
+   "status": "PASS",
+   "observed": 656,
+   "expected": 656,
+   "source": "raw metadata via code/data.py loaders"
+  },
+  {
+   "group": 3,
+   "check": "ddi_melanoma",
+   "status": "PASS",
+   "observed": 21,
+   "expected": 21,
+   "source": "raw metadata via code/data.py loaders"
+  },
+  {
+   "group": 3,
+   "check": "ddi_melanoma_tone_12",
+   "status": "PASS",
+   "observed": 7,
+   "expected": 7,
+   "source": "raw metadata via code/data.py loaders"
+  },
+  {
+   "group": 3,
+   "check": "ddi_melanoma_tone_34",
+   "status": "PASS",
+   "observed": 7,
+   "expected": 7,
+   "source": "raw metadata via code/data.py loaders"
+  },
+  {
+   "group": 3,
+   "check": "ddi_melanoma_tone_56",
+   "status": "PASS",
+   "observed": 7,
+   "expected": 7,
+   "source": "raw metadata via code/data.py loaders"
+  },
+  {
+   "group": 4,
+   "check": "ham_lesion_in_one_split",
+   "status": "PASS",
+   "observed": 0,
+   "expected": 0,
+   "source": null
+  },
+  {
+   "group": 4,
+   "check": "pad_patient_in_one_role",
+   "status": "PASS",
+   "observed": 0,
+   "expected": 0,
+   "source": null
+  },
+  {
+   "group": 4,
+   "check": "derm7pt_each_pair_two_rows_same_label",
+   "status": "PASS",
+   "observed": 0,
+   "expected": 0,
+   "source": null
+  },
+  {
+   "group": 4,
+   "check": "ham10000_record_uid_unique",
+   "status": "PASS",
+   "observed": 0,
+   "expected": 0,
+   "source": null
+  },
+  {
+   "group": 4,
+   "check": "derm7pt_record_uid_unique",
+   "status": "PASS",
+   "observed": 0,
+   "expected": 0,
+   "source": null
+  },
+  {
+   "group": 4,
+   "check": "pad_ufes_20_record_uid_unique",
+   "status": "PASS",
+   "observed": 0,
+   "expected": 0,
+   "source": null
+  },
+  {
+   "group": 4,
+   "check": "ddi_record_uid_unique",
+   "status": "PASS",
+   "observed": 0,
+   "expected": 0,
+   "source": null
+  },
+  {
+   "group": 5,
+   "check": "cache_meta_order_labels_groups_ham_train",
+   "status": "PASS",
+   "observed": 6938,
+   "expected": 6938,
+   "source": "cache/ham_train_meta.json"
+  },
+  {
+   "group": 5,
+   "check": "cache_meta_order_labels_groups_ham_val",
+   "status": "PASS",
+   "observed": 1529,
+   "expected": 1529,
+   "source": "cache/ham_val_meta.json"
+  },
+  {
+   "group": 5,
+   "check": "cache_meta_order_labels_groups_ham_test",
+   "status": "PASS",
+   "observed": 1548,
+   "expected": 1548,
+   "source": "cache/ham_test_meta.json"
+  },
+  {
+   "group": 5,
+   "check": "cache_meta_order_labels_groups_derm7pt_clinical",
+   "status": "PASS",
+   "observed": 1011,
+   "expected": 1011,
+   "source": "cache/derm7pt_clinical_meta.json"
+  },
+  {
+   "group": 5,
+   "check": "cache_meta_order_labels_groups_derm7pt_dermoscopy",
+   "status": "PASS",
+   "observed": 1011,
+   "expected": 1011,
+   "source": "cache/derm7pt_dermoscopy_meta.json"
+  },
+  {
+   "group": 5,
+   "check": "cache_meta_order_labels_groups_pad_ufes_20",
+   "status": "PASS",
+   "observed": 2298,
+   "expected": 2298,
+   "source": "cache/pad_ufes_20_meta.json"
+  },
+  {
+   "group": 5,
+   "check": "cache_meta_order_labels_groups_ddi",
+   "status": "PASS",
+   "observed": 656,
+   "expected": 656,
+   "source": "cache/ddi_meta.json"
+  },
+  {
+   "group": 5,
+   "check": "ham10000_legacy_row_index_sequential",
+   "status": "PASS",
+   "observed": 10015,
+   "expected": 10015,
+   "source": null
+  },
+  {
+   "group": 5,
+   "check": "pad_ufes_20_legacy_row_index_sequential",
+   "status": "PASS",
+   "observed": 2298,
+   "expected": 2298,
+   "source": null
+  },
+  {
+   "group": 5,
+   "check": "ddi_legacy_row_index_sequential",
+   "status": "PASS",
+   "observed": 656,
+   "expected": 656,
+   "source": null
+  },
+  {
+   "group": 5,
+   "check": "ham10000_matches_audit_manifest_paths_labels",
+   "status": "PASS",
+   "observed": 0,
+   "expected": 0,
+   "source": "audit/manifests/ham10000_manifest_v1.csv (cross-check only)"
+  },
+  {
+   "group": 5,
+   "check": "ham10000_sha256_matches_audit_manifest",
+   "status": "PASS",
+   "observed": 0,
+   "expected": 0,
+   "source": "audit/manifests/ham10000_manifest_v1.csv (cross-check only)"
+  },
+  {
+   "group": 5,
+   "check": "derm7pt_matches_audit_manifest_paths_labels",
+   "status": "PASS",
+   "observed": 0,
+   "expected": 0,
+   "source": "audit/manifests/derm7pt_manifest_v1.csv (cross-check only)"
+  },
+  {
+   "group": 5,
+   "check": "derm7pt_sha256_matches_audit_manifest",
+   "status": "PASS",
+   "observed": 0,
+   "expected": 0,
+   "source": "audit/manifests/derm7pt_manifest_v1.csv (cross-check only)"
+  },
+  {
+   "group": 5,
+   "check": "pad_ufes_20_matches_audit_manifest_paths_labels",
+   "status": "PASS",
+   "observed": 0,
+   "expected": 0,
+   "source": "audit/manifests/pad_ufes_20_manifest_v1.csv (cross-check only)"
+  },
+  {
+   "group": 5,
+   "check": "pad_ufes_20_sha256_matches_audit_manifest",
+   "status": "PASS",
+   "observed": 0,
+   "expected": 0,
+   "source": "audit/manifests/pad_ufes_20_manifest_v1.csv (cross-check only)"
+  },
+  {
+   "group": 5,
+   "check": "ddi_matches_audit_manifest_paths_labels",
+   "status": "PASS",
+   "observed": 0,
+   "expected": 0,
+   "source": "audit/manifests/ddi_manifest_v1.csv (cross-check only)"
+  },
+  {
+   "group": 5,
+   "check": "ddi_sha256_matches_audit_manifest",
+   "status": "PASS",
+   "observed": 0,
+   "expected": 0,
+   "source": "audit/manifests/ddi_manifest_v1.csv (cross-check only)"
+  },
+  {
+   "group": 6,
+   "check": "xai_rows",
+   "status": "PASS",
+   "observed": 498,
+   "expected": 498,
+   "source": null
+  },
+  {
+   "group": 6,
+   "check": "xai_melanoma_pairs",
+   "status": "PASS",
+   "observed": 249,
+   "expected": 249,
+   "source": null
+  },
+  {
+   "group": 6,
+   "check": "xai_all_in_primary",
+   "status": "PASS",
+   "observed": 0,
+   "expected": 0,
+   "source": null
+  },
+  {
+   "group": 6,
+   "check": "xai_unique_pairs",
+   "status": "PASS",
+   "observed": 498,
+   "expected": 498,
+   "source": null
+  },
+  {
+   "group": 6,
+   "check": "xai_record_uids_resolve",
+   "status": "PASS",
+   "observed": true,
+   "expected": true,
+   "source": null
+  },
+  {
+   "group": 7,
+   "check": "rq5_eval_has_S1_patient",
+   "status": "PASS",
+   "observed": 18,
+   "expected": ">=1",
+   "source": null
+  },
+  {
+   "group": 7,
+   "check": "rq5_adapt_train_has_S1_patient",
+   "status": "PASS",
+   "observed": 13,
+   "expected": ">=1",
+   "source": null
+  },
+  {
+   "group": 7,
+   "check": "rq5_adapt_val_has_S1_patient",
+   "status": "PASS",
+   "observed": 5,
+   "expected": ">=1",
+   "source": null
+  },
+  {
+   "group": 7,
+   "check": "rq5_S1_role_counts_follow_rule",
+   "status": "PASS",
+   "observed": [
+    18,
+    13,
+    5
+   ],
+   "expected": [
+    18,
+    13,
+    5
+   ],
+   "source": null
+  },
+  {
+   "group": 7,
+   "check": "rq5_S2_role_counts_follow_rule",
+   "status": "PASS",
+   "observed": [
+    522,
+    366,
+    156
+   ],
+   "expected": [
+    522,
+    366,
+    156
+   ],
+   "source": null
+  },
+  {
+   "group": 7,
+   "check": "rq5_S3_role_counts_follow_rule",
+   "status": "PASS",
+   "observed": [
+    147,
+    103,
+    43
+   ],
+   "expected": [
+    147,
+    103,
+    43
+   ],
+   "source": null
+  }
+ ],
+ "info": [
+  {
+   "check": "derm7pt_pair_id_convention_vs_audit_manifest",
+   "differs": true,
+   "explanation": "audit lesion_id = 'case<case_num>'; v1 pair_id follows code/data.py:derm7pt (case_id if non-empty, else 'case<case_num>'), which matches cache/derm7pt_*_meta.json groups"
+  }
+ ],
+ "n_checks": 73,
+ "n_failed": 0,
+ "elapsed_seconds": 13.6
+}

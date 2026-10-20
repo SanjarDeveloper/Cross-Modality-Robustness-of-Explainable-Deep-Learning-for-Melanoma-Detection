@@ -1,0 +1,48 @@
+{
+  "spec_version": "controls_v1",
+  "frozen_utc": "2026-09-27, before any control computation (Stage 2D3)",
+  "source": "02_rev2 §6.1-6.3 (four controls, random seeds averaged within image, quality-oriented contrasts); 03_rev1 §8 control_seed; where unspecified, the simple diagnostic conventions below were chosen without looking at control performance",
+  "grid": "224x224 model-input grid; pixel (i,j) centre at (i+0.5, j+0.5)",
+  "random": {
+    "k": [0, 1, 2, 3, 4],
+    "seed": "stable_seed('ctrl', k, image_uid)",
+    "generator": "numpy.random.default_rng (PCG64), local instance per map",
+    "distribution": "Uniform[0,1) via Generator.random(size=(H,W), dtype=float64)",
+    "dtype": "float64 (stored as generated)",
+    "aggregation": "each of the 5 maps evaluated separately; AUCs averaged WITHIN each image; maps are never averaged; seeds are not independent observations"
+  },
+  "centre": {
+    "definition": "exp(-((i+0.5-H/2)^2 + (j+0.5-W/2)^2) / (2*sigma^2))",
+    "centre_px": [112.0, 112.0],
+    "sigma_px": "0.25*min(H,W) = 56.0",
+    "dtype": "float64",
+    "uses": "geometry only; no masks, labels or model outputs",
+    "note": "radially symmetric: equal-value pixels are ordered by the standard tie-break (ascending flat index)"
+  },
+  "sobel": {
+    "input": "pre-normalisation RGB on the 224 grid: rgb = x*STD + MEAN (float64, ImageNet constants), i.e. the resized cached image in [0,1] (not re-clipped)",
+    "grayscale": "Y = 0.299 R + 0.587 G + 0.114 B (ITU-R BT.601)",
+    "kernels": {"gx": [[-1, 0, 1], [-2, 0, 2], [-1, 0, 1]], "gy": [[-1, -2, -1], [0, 0, 0], [1, 2, 1]]},
+    "operation": "cross-correlation (as numpy/scipy correlate), no normalisation of kernels",
+    "border": "edge replication (numpy.pad mode='edge', 1 pixel)",
+    "magnitude": "sqrt(gx^2 + gy^2)",
+    "dtype": "float64",
+    "invalid": "a constant (max-min < 1e-12) or non-finite Sobel map is flagged and the control is UNAVAILABLE for that image",
+    "uses": "image pixels only; no model gradients or masks"
+  },
+  "mismatch": {
+    "groups": "(label_mel, modality, explainer, condition)",
+    "order": "records in a group sorted by (stable_seed('mismatch_v1', record_uid), record_uid)",
+    "assignment": "cyclic shift by the smallest s >= 1 such that no recipient receives its own map or a map from the same case (same cluster_id; for Derm7pt the case is pair_id); a single global shift within the group is a derangement",
+    "insufficient": "groups with fewer than 2 records, or where no valid shift exists, are UNAVAILABLE",
+    "donor_invalid": "if the donor map is not eligible (shape-invalid, or IG completeness failure) the planned mapping is kept and the control is UNAVAILABLE for that recipient; no replacement donor is chosen",
+    "persistence": "recipient->donor mapping written to disk before any metric is computed"
+  },
+  "contrasts": {
+    "insertion_advantage": "AUC_ins(explainer) - AUC_ins(control)",
+    "deletion_advantage": "AUC_del(control) - AUC_del(explainer)",
+    "sign": "positive = better than that control under that metric",
+    "combination": "none; each control type reported separately"
+  },
+  "evaluation": "same image, baseline, S=32 curves_v1 settings, eval_batch and xai_precision_v1 for explainers and controls"
+}

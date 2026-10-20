@@ -1,0 +1,72 @@
+{
+  "schema_version": "rv1.config/1",
+  "run_kind": "v1",
+  "purpose": "predict_v1",
+  "project_root": "../..",
+  "description": "Stage 6B: RQ1 E1.1/E1.2 seed spread for ResNet-50 seeds 0/1/2; seeds 1-2 per-model HAM-VAL thresholds and Derm7pt ALL inference; seed 0 reused from Stage 4A/4B1. Descriptive spread only.",
+  "manifests": {
+    "ham10000": "research_v1/manifests/v1/ham10000_v1.csv",
+    "derm7pt": "research_v1/manifests/v1/derm7pt_v1.csv",
+    "pad_ufes_20": "research_v1/manifests/v1/pad_ufes_20_v1.csv",
+    "ddi": "research_v1/manifests/v1/ddi_v1.csv",
+    "xai_derm7pt": "research_v1/manifests/v1/xai_derm7pt_v1.csv"
+  },
+  "environment_inventory": "research_v1/env/env_inventory_v1.json",
+  "seeds": {
+    "split_seed": 0,
+    "train_seed": 0,
+    "sample_seed": 20260927,
+    "control_seed": null,
+    "bootstrap_seed": 20261001
+  },
+  "versions": {
+    "prep_version": "prep_v1_cached256",
+    "aug_version": "aug_std_v1",
+    "perturb_version": null,
+    "metric_version": null,
+    "xai_version": null,
+    "threshold_rule": "v1_highest_t_img_sens95",
+    "mask_interp_version": "mask_interp_v1"
+  },
+  "determinism": {
+    "cudnn_deterministic": true,
+    "cudnn_benchmark": false,
+    "use_deterministic_algorithms": true,
+    "warn_only": true
+  },
+  "legacy_sources": [
+    "code/data.py",
+    "code/eval/xai.py",
+    "code/labels.py",
+    "code/precache.py",
+    "code/train.py",
+    "research_v1/tools/build_manifests_v1.py",
+    "research_v1/tools/inventory_env.py"
+  ],
+  "supporting_inputs": {
+    "run_s1": "research_v1/runs/main_train/resnet50_s1_20261003T163838Z/best.json",
+    "ckpt_s1": "research_v1/runs/main_train/resnet50_s1_20261003T163838Z/ckpt_epoch7.pt",
+    "ckpt_s1_sidecar": "research_v1/runs/main_train/resnet50_s1_20261003T163838Z/ckpt_epoch7.pt.sha256",
+    "config_s1": "research_v1/configs/train_main_resnet50_s1_v1.json",
+    "val_epoch_s1": "research_v1/runs/main_train/resnet50_s1_20261003T163838Z/val_epoch7_a1-acb3fbd9.json",
+    "verify_s1": "research_v1/runs/stage6a/post_training_verification_s1.json",
+    "run_s2": "research_v1/runs/main_train/resnet50_s2_20261003T164841Z/best.json",
+    "ckpt_s2": "research_v1/runs/main_train/resnet50_s2_20261003T164841Z/ckpt_epoch8.pt",
+    "ckpt_s2_sidecar": "research_v1/runs/main_train/resnet50_s2_20261003T164841Z/ckpt_epoch8.pt.sha256",
+    "config_s2": "research_v1/configs/train_main_resnet50_s2_v1.json",
+    "val_epoch_s2": "research_v1/runs/main_train/resnet50_s2_20261003T164841Z/val_epoch8_a1-debb6888.json",
+    "verify_s2": "research_v1/runs/stage6a/post_training_verification_s2.json",
+    "model_checkpoint": "research_v1/runs/main_train/resnet50_s0_20260927T155924Z/ckpt_epoch8.pt",
+    "model_best_pointer": "research_v1/runs/main_train/resnet50_s0_20260927T155924Z/best.json",
+    "seed0_threshold": "research_v1/runs/predict_v1/20261001T183557Z_20b3af67_4959f943/threshold.json",
+    "seed0_pred_derm7pt": "research_v1/runs/predict_v1/20261001T183557Z_20b3af67_4959f943/predictions_derm7pt_all.csv",
+    "seed0_results_4b1": "research_v1/runs/analysis_rq1/20261001T184716Z_69709444_0f8862c5/results.json",
+    "model_cards_s1_s2": "research_v1/runs/stage6a/MODEL_CARDS_resnet50_s1_s2_v1.md",
+    "val_list": "research_v1/configs/main_ham_val_full_v1.csv",
+    "protocol_addendum_I": "research_v1/docs/PROTOCOL_ADDENDUM_2026-10-03_I.md",
+    "cache/ham_val_meta.json": "cache/ham_val_meta.json",
+    "cache/derm7pt_dermoscopy_meta.json": "cache/derm7pt_dermoscopy_meta.json",
+    "cache/derm7pt_clinical_meta.json": "cache/derm7pt_clinical_meta.json",
+    "manifest_card": "research_v1/manifests/v1/manifest_card_v1.json"
+  }
+}

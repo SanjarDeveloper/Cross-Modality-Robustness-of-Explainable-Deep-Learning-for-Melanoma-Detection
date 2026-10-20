@@ -1,0 +1,7 @@
+{"frozen_utc": "2026-10-04 (before any Stage 9E execution)",
+ "smoke_resume": {"source": "rv1.resume_compare (Stage 2C2 values, unchanged)", "max_probe_prob_abs_diff": 1e-3, "probe_auroc_abs_diff": 1e-3,
+   "identical": ["record order per step", "x_digest (augmentation output) per step", "lr_used per step", "optimizer step count"],
+   "reported": ["parameter/buffer max abs diff", "optimizer state", "scheduler state", "RNG states"],
+   "design": "U = 2 epochs uninterrupted; R = --stop-after-epoch 1 then --resume in a fresh process; failed attempts preserved"},
+ "pilots": {"gate": "all 3 smoke/resume comparisons pass", "checks": ["exit code 0", "all train losses and val metrics finite", "receipt verifies"],
+   "val_scores": "diagnostic only; not used for any selection or decision"}}

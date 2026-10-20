@@ -1,0 +1,67 @@
+{
+  "schema_version": "rv1.config/1",
+  "run_kind": "v1",
+  "purpose": "prep_check",
+  "project_root": "../..",
+  "description": "Stage 2B2C: prep_v1_cached256 deterministic evaluation preprocessing sample check (legacy 256 cache read-only -> cv2 INTER_LINEAR 224 -> /255 -> ImageNet normalisation, CHW float32; HAM masks mask_interp_v1 + INTER_NEAREST_EXACT). Run in research_v1/.venv_prep (single OpenCV). No augmentation, model or training.",
+  "manifests": {
+    "ham10000": "research_v1/manifests/v1/ham10000_v1.csv",
+    "derm7pt": "research_v1/manifests/v1/derm7pt_v1.csv",
+    "pad_ufes_20": "research_v1/manifests/v1/pad_ufes_20_v1.csv",
+    "ddi": "research_v1/manifests/v1/ddi_v1.csv",
+    "xai_derm7pt": "research_v1/manifests/v1/xai_derm7pt_v1.csv"
+  },
+  "environment_inventory": "research_v1/env/env_inventory_v1.json",
+  "seeds": {
+    "split_seed": 0,
+    "train_seed": null,
+    "sample_seed": 20260927,
+    "control_seed": null,
+    "bootstrap_seed": null
+  },
+  "versions": {
+    "prep_version": "prep_v1_cached256",
+    "aug_version": null,
+    "perturb_version": null,
+    "metric_version": null,
+    "xai_version": null,
+    "threshold_rule": null,
+    "mask_interp_version": "mask_interp_v1"
+  },
+  "determinism": {
+    "cudnn_deterministic": true,
+    "cudnn_benchmark": false,
+    "use_deterministic_algorithms": true,
+    "warn_only": true
+  },
+  "legacy_sources": [
+    "code/data.py",
+    "code/labels.py",
+    "code/precache.py",
+    "research_v1/tools/build_manifests_v1.py",
+    "research_v1/tools/inventory_env.py"
+  ],
+  "supporting_inputs": {
+    "manifest_card": "research_v1/manifests/v1/manifest_card_v1.json",
+    "mask_audit_csv": "research_v1/runs/mask_audit/20260927T113537Z_c049da73_88aea4ea/mask_interpretation.csv",
+    "decode_audit_csv": "research_v1/runs/data_audit/20260927T111157Z_7be7a6a8_5f26c521/decode_audit.csv",
+    "venv_prep_freeze": "research_v1/runs/stage2b2c/venv_prep_freeze.txt",
+    "cache/ddi_img.npy": "cache/ddi_img.npy",
+    "cache/ddi_meta.json": "cache/ddi_meta.json",
+    "cache/derm7pt_clinical_img.npy": "cache/derm7pt_clinical_img.npy",
+    "cache/derm7pt_clinical_meta.json": "cache/derm7pt_clinical_meta.json",
+    "cache/derm7pt_dermoscopy_img.npy": "cache/derm7pt_dermoscopy_img.npy",
+    "cache/derm7pt_dermoscopy_meta.json": "cache/derm7pt_dermoscopy_meta.json",
+    "cache/ham_test_img.npy": "cache/ham_test_img.npy",
+    "cache/ham_test_mask.npy": "cache/ham_test_mask.npy",
+    "cache/ham_test_meta.json": "cache/ham_test_meta.json",
+    "cache/ham_train_img.npy": "cache/ham_train_img.npy",
+    "cache/ham_train_mask.npy": "cache/ham_train_mask.npy",
+    "cache/ham_train_meta.json": "cache/ham_train_meta.json",
+    "cache/ham_val_img.npy": "cache/ham_val_img.npy",
+    "cache/ham_val_mask.npy": "cache/ham_val_mask.npy",
+    "cache/ham_val_meta.json": "cache/ham_val_meta.json",
+    "cache/pad_ufes_20_img.npy": "cache/pad_ufes_20_img.npy",
+    "cache/pad_ufes_20_meta.json": "cache/pad_ufes_20_meta.json"
+  }
+}
