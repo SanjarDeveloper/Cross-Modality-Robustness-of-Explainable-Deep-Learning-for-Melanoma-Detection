@@ -25,6 +25,7 @@ node_modules/
 # --- Personal / working documents (not part of the code) ---
 *.docx
 SESSION_HANDOFF*.md
+README_legacy.md
 audit/
 protocol/
 
